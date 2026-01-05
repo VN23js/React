@@ -2,7 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-
+ import SimpleParallax from "simple-parallax-js";
 function App() {
   const [count, setCount] = useState(0)
 
@@ -31,8 +31,23 @@ function App() {
 
       <h1>Vite + React</h1>
       <button className='button-primary' >Just exemple </button>
-    </>
+      <div className='main-container'>
+   <div className='fonbox'>
     
+<SimpleParallax  >
+  
+    <img  className='photo-pralax' src="/hero.webp" alt="image" />
+  </SimpleParallax>
+
+   </div>
+  </div>
+<p className="read-the-docs">
+        Click on the Vite and React logos to learn more Click on the Vite and React logos to learn more Click on the Vite and React logos to learn more
+      </p>
+    </>
+   
+
+
   )
 }
 

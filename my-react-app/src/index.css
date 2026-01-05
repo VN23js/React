@@ -74,3 +74,6 @@ button:focus-visible {
   color: var(--text);
 }
 }
+.photo-pralax{
+  border-radius: 24px;
+}

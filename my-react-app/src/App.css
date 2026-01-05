@@ -1,7 +1,7 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
 }
 
@@ -39,4 +39,34 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.fonbox {
+    overflow: hidden;        /* обрезает края картинки при параллаксе */
+  border-radius: 24px;
+     
+  
+}
+.fonbox img {
+    display: block;          /* Чтобы margin auto работал */
+    max-width: 100%;         /* Картинка не выходит за ширину блока */
+    height: auto;            /* Сохраняет пропорции */
+ 
+  
+ 
+    object-fit: cover;       /* Картинка заполняет блок, обрезая лишнее */
+}
+
+.main-container {
+    width: 100%;
+
+    max-width: 800px;        /* Ограничиваем ширину для больших экранов */
+    margin: 0 auto;          /* Центрирование контейнера */
+    padding:  10px;         /* Отступы по краям */
+    box-sizing: border-box;  /* Чтобы padding не ломал ширину */
+}
+.fonbox img.photo-parallax {
+
+  overflow: hidden;        /* обрезает края картинки при параллаксе */
+  border-radius: 24px;
 }
