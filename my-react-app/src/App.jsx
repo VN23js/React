@@ -6,13 +6,32 @@ import './App.css';
 import SimpleParallax from 'simple-parallax-js';
 import { animate, motion } from 'framer-motion';
 import Card from './components/card';
+import Item from './components/item';
+import Adduser from './components/carditem';
+
 function App() {
   const [count, setCount] = useState(0);
+  const [name, setName] = useState('');
   const [users, setUsers] = useState([
-    { id: 1, name: 'Piero', mail: 'vdgg@gmail.com' },
-    { id: 2, name: 'Anna', mail: 'anna@gmail.com' },
-    { id: 3, name: 'John', mail: 'john@gmail.com' },
+    { id: 1, name: 'Piero', mail: 'vdgg@gmail.com', age: 20 },
+    { id: 2, name: 'Anna', mail: 'anna@gmail.com', age: 25 },
+    { id: 3, name: 'John', mail: 'john@gmail.com', age: 22 },
+    { id: 4, name: 'Jo', mail: 'jo@gmail.com', age: 45 },
   ]);
+  const oncreaseAge = (id) => {
+    setUsers((prevUsers) =>
+      prevUsers.map((user) =>
+        user.id === id ? { ...user, age: user.age + 1 } : user
+      )
+    );
+  };
+  const HandleChanngeName = (id, e) => {
+    setUsers((prevUsers) =>
+      prevUsers.map((user) =>
+        user.id === id ? { ...user, [e.target.name]: e.target.value } : user
+      )
+    );
+  };
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -123,9 +142,50 @@ function App() {
           <input name='password' onChange={HandleChange} />
           <button onClick={removeFirst}>Удалить первого</button>
           {users.map((user) => (
-            <Card key={user.id} userService={user}></Card>
+            <Card
+              key={user.id}
+              increaseAge={oncreaseAge}
+              userService={user}
+              HandleChanng={HandleChanngeName}
+            ></Card>
           ))}
+          <button
+            onClick={() =>
+              setUsers((prevUsers) =>
+                prevUsers.map((user) => ({
+                  ...user,
+                  age: user.age + 1,
+                }))
+              )
+            }
+          >
+            Увеличить возрост всем{' '}
+          </button>
         </div>
+        <Item user={{ name: 'jhon', age: 20 }}></Item>
+        <h1>Счетчик {count}</h1>
+        <button onClick={() => setCount(count + 1)}> Увеличить</button>
+      </div>
+      <div>
+        <div className='p-1 flex flex-col justify-center items-center'>
+          {' '}
+          <input
+            className='border
+             color-white'
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+            type='text'
+          />
+          <p>{name}</p>
+        </div>
+
+        {users.map((user) => (
+          <Adduser
+            key={user.id}
+            addusers={user}
+            HandleChanng={HandleChanngeName}
+          ></Adduser>
+        ))}
       </div>
     </>
   );
