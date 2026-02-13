@@ -6,10 +6,10 @@ export default function Adduser({ addusers, HandleChanng }) {
   };
   const { name, age, id, mail } = addusers;
   return (
-    <div className='container mx-auto px-4'>
+    <div className='container  '>
       <div className='flex justify-center'>
         <div className='w-full max-w-[320px] bg-white rounded-2xl shadow-lg border p-5'>
-          <h2 className='text-lg font-semibold text-center mb-4'>
+          <h2 className='text-lg text-black font-semibold text-center mb-4'>
             Профиль пользователя
           </h2>
 

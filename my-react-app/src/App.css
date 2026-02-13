@@ -75,7 +75,9 @@
 .card {
   border-radius: 16px;
   overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
 }
 
 .hero {
@@ -83,4 +85,10 @@
   margin-left: 50%;
   margin-left: calc(50% - 50vw);
   background: blue;
+}
+
+.form-inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  align-items: center;
 }

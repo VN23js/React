@@ -22,3 +22,39 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+ const login = async () => {
+    try {
+      const res = await fetch('http://localhost:3000/api/auth/getme', {
+        method: 'GET',
+        credentials: 'include',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log('Ошибка входа', data.message);
+      }
+      console.log('Успешный вход', data);
+    } catch (error) {
+      console.log('Ощибка', error);
+    }
+  };
+
+onClick={() => login(form.name, form.password)}
+const login = async (username, password) => {
+    try {
+      const res = await fetch('http://localhost:3000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+        credentials: 'include',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log('Ошибка входа', data.message);
+      }
+      console.log('Успешный вход', data);
+    } catch (error) {
+      console.log('Ощибка', error);
+    }
+  };
