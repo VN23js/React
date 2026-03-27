@@ -6,6 +6,8 @@ const initialState = {
   isLodingTodo: null,
   status: 'idle',
   message: null,
+  totalTodos: null,
+  hasMore: null,
 };
 
 export const postTodo = createAsyncThunk(
@@ -78,6 +80,21 @@ export const completedTodo = createAsyncThunk(
     }
   }
 );
+export const getTodoMore = createAsyncThunk(
+  '/gettodoMore',
+  async ({ nextPage }, { rejectWithValue }) => {
+    try {
+      const { data } = await api.get('todo/getodo', {
+        params: {
+          page: nextPage,
+        },
+      });
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || 'Ошибка сервера');
+    }
+  }
+);
 export const getTodo = createAsyncThunk(
   '/gettodo',
   async (_, { rejectWithValue }) => {
@@ -129,6 +146,8 @@ export const todoSlice = createSlice({
         state.error = null;
         state.isLodingTodo = true;
         state.todos = action.payload.todos || [];
+        state.totalTodos = action.payload.totalTodos;
+        state.hasMore = action.payload.hasMore;
         state.message = action.payload.message;
       })
       .addCase(getTodo.rejected, (state, action) => {
@@ -198,6 +217,30 @@ export const todoSlice = createSlice({
       })
       .addCase(completedTodo.rejected, (state, action) => {
         state.status = 'failed';
+        state.error = action.payload?.message || 'Ошибка сервера';
+      })
+      //getpostMore
+      .addCase(getTodoMore.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(getTodoMore.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.error = null;
+        state.isLodingTodo = true;
+        const oldTodosId = new Set(state.todos.map((todo) => todo._id));
+        const oldTodos = state.todos;
+        const newTodos = action.payload.todos.filter(
+          (todo) => !oldTodosId.has(todo._id)
+        );
+        state.todos = [...oldTodos, ...newTodos];
+        state.totalTodos = action.payload.totalTodos;
+        state.hasMore = action.payload.hasMore;
+        state.message = action.payload.message;
+      })
+      .addCase(getTodoMore.rejected, (state, action) => {
+        state.status = 'failed';
+        state.isLodingTodo = true;
         state.error = action.payload?.message || 'Ошибка сервера';
       });
   },

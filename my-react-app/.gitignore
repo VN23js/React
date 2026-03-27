@@ -37,6 +37,26 @@ dist-ssr
       console.log('Ощибка', error);
     }
   };
+ const [items, setItems] = useState([]); // твои предметы
+  const login = async () => {
+    try {
+      const res = await fetch('http://localhost:3000/api/case/getcase', {
+        method: 'GET',
+        credentials: 'include',
+      });
+      const data = await res.json();
+      setItems((prev) => data);
+      if (!res.ok) {
+        console.log('Ошибка  получение предметов', data.message);
+      }
+      console.log('Успешные предметы', data);
+    } catch (error) {
+      console.log('Ощибка', error);
+    }
+  };
+  useEffect(() => {
+    login();
+  }, []);
 
 onClick={() => login(form.name, form.password)}
 const login = async (username, password) => {
@@ -58,3 +78,47 @@ const login = async (username, password) => {
       console.log('Ощибка', error);
     }
   };
+.flowers {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.flowers::after,
+.flowers::before {
+  position: absolute;
+  content: '';
+  background-repeat: no-repeat;
+
+  width: 16px;
+  height: 120px;
+  background-size: 100%;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.flowers::after {
+  background: url('/event-top-right.da1e6b0c3fef826eed86.png');
+  background-size: 100%;
+  content: '';
+  height: 174px;
+  right: -7.5px;
+  position: absolute;
+  top: 145px;
+  width: 23px;
+  z-index: 20;
+}
+.flowers::before {
+  background: url('/download.png');
+  background-size: 100%;
+  content: '';
+  height: 174px;
+  left: -2.5px;
+  position: absolute;
+  top: 140px;
+  width: 17px;
+  z-index: 20;
+}
