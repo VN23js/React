@@ -5,7 +5,7 @@ import Case from './pages/CasePage/CasePage';
 import { Route, Routes } from 'react-router-dom';
 import Home from './Home';
 import Register from './pages/Register';
-import Layout from './components/Layout.jsx';
+import Layout from './components/layout.jsx';
 import { ToastContainer } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearError, getMe } from './redux/authSlice';
