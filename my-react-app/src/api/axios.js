@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://nmmwl94l-3000.euw.devtunnels.ms/api',
+  baseURL: 'http://localhost:3000/api',
   withCredentials: true,
 });
 
