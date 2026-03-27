@@ -1,30 +1,26 @@
-import { useEffect, useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import { useEffect, useRef, useState } from 'react';
 import './App.css';
-
-import SimpleParallax from 'simple-parallax-js';
-import { animate, motion } from 'framer-motion';
-import Card from './components/card';
-import Item from './components/item';
-import Adduser from './components/carditem';
-import { pre } from 'framer-motion/client';
 import Login from './pages/Login';
-import Todos from './pages/Todos';
-import NotFound from './pages/NotFound';
+import Case from './pages/CasePage/CasePage';
 import { Route, Routes } from 'react-router-dom';
 import Home from './Home';
-import Navbar from './components/navbar';
 import Register from './pages/Register';
-import Layout from './components/layout';
+import Layout from './components/Layout';
 import { ToastContainer } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearError, getMe } from './redux/authSlice';
+import Todos from './pages/TodoPage/Todos';
+import Inventory from './pages/CasePage/Invetory';
+
 export default function App() {
+  const didFetchRef = useRef(false);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(clearError());
-    dispatch(getMe());
+    if (!didFetchRef.current) {
+      dispatch(getMe());
+      didFetchRef.current = true;
+    }
   }, []);
   return (
     <>
@@ -32,12 +28,17 @@ export default function App() {
         <Route element={<Layout />}>
           <Route path='/' element={<Home />} />
           <Route path='/todos' element={<Todos />} />
-          <Route path='*' element={<NotFound />} />
+          <Route path='/case/:id' element={<Case />} />
+          <Route path='/inventory' element={<Inventory />} />
         </Route>
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
       </Routes>
-      <ToastContainer position='bottom-right' />
+      <ToastContainer
+        position='bottom-right'
+        className='pb-2
+        '
+      />
     </>
   );
 }

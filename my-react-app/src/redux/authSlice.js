@@ -84,8 +84,8 @@ export const authSlice = createSlice({
         state.user = action.payload.user;
         state.message = action.payload.message;
         state.error = null;
-        console.log(`Ответ сервера:  ${state.message} `);
-        console.log('User:', state.user);
+        //   console.log(`Ответ сервера:  ${state.message} `);
+        // console.log('User:', state.user);
       })
       .addCase(registerUsers.rejected, (state, action) => {
         state.status = 'failed';
@@ -124,8 +124,8 @@ export const authSlice = createSlice({
         state.user = action.payload.user;
         state.message = action.payload.message;
         state.erro = null;
-        console.log(`Ответ сервера:  ${action.payload.message} `);
-        console.log('User:', state.user);
+        //  console.log(`Ответ сервера:  ${action.payload.message} `);
+        //  console.log('User:', state.user);
       })
       .addCase(getMe.rejected, (state, action) => {
         state.status = 'failed';

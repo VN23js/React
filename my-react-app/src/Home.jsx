@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
@@ -9,8 +9,16 @@ import Card from './components/card';
 import Item from './components/item';
 import Adduser from './components/carditem';
 import { pre } from 'framer-motion/client';
+import { retry } from '@reduxjs/toolkit/query';
+import { Grid } from '@mui/joy';
+import HomeCaseItems from './pages/CasePage/components/HomeCaseItems';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllCaseFetch } from './redux/caseSlice';
+import LeftPanel from './components/LeftPanel';
 
 function Home() {
+  {
+    /*
   const [count, setCount] = useState(0);
   const [name, setName] = useState('');
   const [users, setUsers] = useState([
@@ -248,9 +256,82 @@ function Home() {
               </motion.div>
             ))}
           </div>
+           <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5  justify-items-center '>
+        </div>  const cases = Array(5).fill({});
+      </div>
+    </> console.log(window.innerWidth, 'Экран ');
+
+  );
+
+
+
+
+ <Grid container spacing={0} justifyContent='center'>
+        {cases.map((item, i) => (
+          <Grid key={item._id} item xs={6} sm={4} md={3} lg={2.2}>
+            <div
+              onClick={() => navigate(`/case/${item._id}`)}
+              className='cursor-pointer p-[2px]  transition-transform duration-300 hover:text-[#fac26f] flex flex-col items-center'
+            >
+              <img
+                draggable='false'
+                className='case-img max-w-[310px] w-full object-contain transition-transform duration-300 hover:scale-105'
+                alt='Гавайский Павлин'
+                src={item.image}
+              />
+              <span className='box_title mt-2 mb-2 text-center font-bold text-sm sm:text-base'>
+                {item.name}
+              </span>
+              <span className='box-price px-2 font-bold h-[32px] font-geo items-center  align-center flex rounded-lg text-[#ffc23d]  bg-[linear-gradient(180deg,#5e4437,#3e2c23)]'>
+                {item.price} ₽
+              </span>
+            </div>
+          </Grid>
+        ))}
+      </Grid>
+
+
+
+
+
+
+
+
+
+  <div className='flex justify-center'>
+      {/* Боковая панель
+      <div className='hidden min-[1500px]:block w-[200px] shrink-0 ml-4 '>
+        <div className='bg-[#1a181d] rounded-lg p-4'>
+          <p className='text-white'>Боковая панель</p>
         </div>
       </div>
-    </>
+  */
+  }
+
+  const cases = useSelector((state) => state.case.cases);
+  console.log(cases);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllCaseFetch());
+  }, []);
+  const TeploPoshlo = cases?.filter((c) => c.category === 'Teplo Poshlo');
+
+  const CaseCS2 = cases?.filter((c) => c.category === 'Кейсы КС2');
+
+  return (
+    <div className='flex flex-col min-[1500px]:max-w-[1200px] mx-auto w-full pt-4 gap-5'>
+      <HomeCaseItems
+        nameCase='Teplo Poshlo'
+        cases={TeploPoshlo}
+      ></HomeCaseItems>
+      <HomeCaseItems nameCase='Кейсы КС2' cases={CaseCS2}></HomeCaseItems>
+      <HomeCaseItems
+        nameCase='Teplo Poshlo'
+        cases={TeploPoshlo}
+      ></HomeCaseItems>
+      <HomeCaseItems nameCase='Кейсы КС2' cases={CaseCS2}></HomeCaseItems>
+    </div>
   );
 }
 
