@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Navbar from './Navbar';
+import Navbar from './navbar';
 import { Outlet } from 'react-router-dom';
 import MobilePanel from './MobilePanel';
 import LeftPanel from './LeftPanel';
