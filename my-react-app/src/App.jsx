@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearError, getMe } from './redux/authSlice';
 import Todos from './pages/TodoPage/Todos';
 import Inventory from './pages/CasePage/Invetory';
-
+import FormsTsx from './TS/Forms.tsx';
 export default function App() {
   const didFetchRef = useRef(false);
   const dispatch = useDispatch();
@@ -27,6 +27,7 @@ export default function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path='/' element={<Home />} />
+          <Route path='/formstsx' element={<FormsTsx />} />
           <Route path='/todos' element={<Todos />} />
           <Route path='/case/:id' element={<Case />} />
           <Route path='/inventory' element={<Inventory />} />

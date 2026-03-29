@@ -9,7 +9,7 @@ export default function HomeCaseItems({ cases, nameCase }) {
         {nameCase}
       </h1>
       <Grid container spacing={0} justifyContent='center'>
-        {cases.map((item, i) => (
+        {cases?.map((item, i) => (
           <Grid key={item._id} xs={6} sm={4} md={3} lg={2.3}>
             <div
               onClick={() => navigate(`/case/${item._id}`)}
