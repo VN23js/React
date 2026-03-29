@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://petuhcase.duckdns.org/api',
+  baseURL: '/api',
   withCredentials: true,
 });
 
