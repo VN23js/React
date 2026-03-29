@@ -1,4 +1,4 @@
 import { io } from 'socket.io-client';
-export const socket = io('https://petuhcase.duckdns.org', {
+export const socket = io('/', {
   withCredentials: true,
 });
