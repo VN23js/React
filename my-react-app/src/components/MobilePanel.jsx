@@ -1,9 +1,12 @@
-import { Briefcase, Circle, CirclePlus, UserRoundPen } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
+import { CirclePlus } from 'lucide-react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import NavigationLinkInventory from './LinkNavigation/NavigationLink';
 import NavigationLinkHome from './LinkNavigation/NavigationLinkHome';
+import { useSelector } from 'react-redux';
 export default function MobilePanel() {
+  const { user, isAuth } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+
   return (
     <div
       className='fixed
@@ -19,7 +22,16 @@ export default function MobilePanel() {
         <NavigationLinkHome></NavigationLinkHome>
         <NavigationLinkInventory></NavigationLinkInventory>
       </div>
-      <div className='relative'>
+      <div className='relative flex items-center gap-3'>
+        {isAuth && (
+          <div className='  h-[50px] w-[50px] shrink-0 rounded-[50px] cursor-pointer overflow-hidden '>
+            <img
+              onClick={() => navigate(`/profile/${user.id}`)}
+              className=' w-full h-full object-cover'
+              src='https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg'
+            />
+          </div>
+        )}
         <div className='flex items-center h-[38px] px-3 gap-2 rounded-xl  font-geo  bg-[linear-gradient(307deg,#d26928_3.2%,#ffd014_99.71%)]'>
           <span className=' text-[16px] '>0 </span>
           <CirclePlus className='w-5 h-5 ' />

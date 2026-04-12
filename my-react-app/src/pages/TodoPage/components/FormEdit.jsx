@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import ButtonDelete from '../../../components/ButtonDelete';
-import Motion from '../../../components/animate';
+import ButtonDelete from './ui/ButtonDelete';
+import Motion from './ui/animate';
 
 export default function FormTodoEdit({
   text,

@@ -8,21 +8,22 @@ import {
 } from '../../../redux/caseSlice';
 import { useMemo, useState } from 'react';
 import { useEffect } from 'react';
-import Motion from '../../../components/animate';
+import Motion from '../../TodoPage/components/ui/animate';
 import useRoulette from '../../../hooks/useAnimationItems';
 import { useRef } from 'react';
-import AuthWarning from './AuthWarning';
+import AuthWarning from './ui/shared/AuthWarning';
 import { NavLink, useParams } from 'react-router-dom';
 import ModalWinItem from './ModalWinItem';
 import SkeletonRoulette from '../Skeleton/SkeletonRoulette';
-import ButtonCase from './ui/Button';
+import ButtonCase from './ui/shared/Button';
+import { toast } from 'react-toastify';
 export default function RoletsItems() {
   const { id } = useParams();
   const { isAuth } = useSelector((state) => state.auth);
   const { isWinModalOpen, getItemsRulet, itemsrulet, CaseName } = useSelector(
     (state) => state.case
   );
-
+  console.log(itemsrulet);
   const trackRef = useRef(null);
   const [spining, setSpining] = useState(false);
   const { animateToIndex, resetPostion } = useRoulette(trackRef);
@@ -48,6 +49,7 @@ export default function RoletsItems() {
       if (!isMounted.current) return;
       dispatch(openWinModal());
     } catch (error) {
+      toast.error('Ошибка открытие кейса!');
       console.error('Ошибка', error);
     } finally {
       setSpining(false);

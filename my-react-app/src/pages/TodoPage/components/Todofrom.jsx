@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Grid from '@mui/joy/Grid';
-import Motion from '../../../components/animate';
+import Motion from './ui/animate';
 import { postTodo } from '../../../redux/todoSlice';
-import ButtonAdd from '../../../components/ButtonAdd';
+import ButtonAdd from './ui/ButtonAdd';
 
 export default function TodoForm() {
   const dispatch = useDispatch();

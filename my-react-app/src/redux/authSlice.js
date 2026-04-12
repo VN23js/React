@@ -67,6 +67,7 @@ export const authSlice = createSlice({
       state.isAuth = false;
       state.isLoding = false;
     },
+
     clearError(state) {
       state.error = null;
       state.message = null;

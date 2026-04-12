@@ -5,9 +5,9 @@ import './App.css';
 
 import SimpleParallax from 'simple-parallax-js';
 import { animate, motion } from 'framer-motion';
-import Card from './components/card';
-import Item from './components/item';
-import Adduser from './components/carditem';
+import Card from './Test/card';
+import Item from './Test/item';
+import Adduser from './Test/carditem';
 import { pre } from 'framer-motion/client';
 import { retry } from '@reduxjs/toolkit/query';
 import { Grid } from '@mui/joy';
@@ -15,6 +15,8 @@ import HomeCaseItems from './pages/CasePage/components/HomeCaseItems';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCaseFetch } from './redux/caseSlice';
 import LeftPanel from './components/LeftPanel';
+import Timer from './TS/Time';
+import LoadingCard from './pages/CasePage/components/ui/shared/Loading';
 
 function Home() {
   {
@@ -308,30 +310,36 @@ function Home() {
   */
   }
 
-  const cases = useSelector((state) => state.case.cases);
+  const { cases, getAllCase } = useSelector((state) => state.case);
   console.log(cases);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllCaseFetch());
   }, []);
-  const TeploPoshlo = cases?.filter((c) => c.category === 'Teplo Poshlo');
 
+  if (getAllCase.status === 'loading') {
+    return <LoadingCard></LoadingCard>;
+  }
+  const TeploPoshlo = cases?.filter((c) => c.category === 'Teplo Poshlo');
   const CaseCS2 = cases?.filter((c) => c.category === 'Кейсы КС2');
 
   return (
-    <div className='flex flex-col min-[1500px]:max-w-[1200px] mx-auto w-full pt-4 gap-5'>
-      <HomeCaseItems
-        nameCase='Teplo Poshlo'
-        cases={TeploPoshlo}
-      ></HomeCaseItems>
-      <HomeCaseItems nameCase='Кейсы КС2' cases={CaseCS2}></HomeCaseItems>
-      <HomeCaseItems
-        nameCase='Teplo Poshlo'
-        cases={TeploPoshlo}
-      ></HomeCaseItems>
-      <HomeCaseItems nameCase='Кейсы КС2' cases={CaseCS2}></HomeCaseItems>
-    </div>
+    <>
+      <Timer></Timer>
+      <div className='flex flex-col min-[1500px]:max-w-[1200px] mx-auto w-full pt-4 gap-5'>
+        <HomeCaseItems
+          nameCase='Teplo Poshlo'
+          cases={TeploPoshlo}
+        ></HomeCaseItems>
+        <HomeCaseItems nameCase='Кейсы КС2' cases={CaseCS2}></HomeCaseItems>
+        <HomeCaseItems
+          nameCase='Teplo Poshlo'
+          cases={TeploPoshlo}
+        ></HomeCaseItems>
+        <HomeCaseItems nameCase='Кейсы КС2' cases={CaseCS2}></HomeCaseItems>
+      </div>
+    </>
   );
 }
 

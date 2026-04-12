@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../api/axios';
 
-
 const initialState = {
   caseItems: [],
   itemsrulet: [],
@@ -86,7 +85,7 @@ export const getAllInventoryFetch = createAsyncThunk(
       const { data } = await api.get('/case/inventory');
       return data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || 'Ошибка сервера');
+      return rejectWithValue(error.response?.data?.message || 'Ошибка сервера');
     }
   }
 );

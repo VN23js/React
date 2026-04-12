@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
-import ButtonCase from '../pages/CasePage/components/ui/Button.js';
-
+import ButtonCase from '../pages/CasePage/components/ui/shared/Button.js';
+import List from './List.js';
+import Timer from './Time.js';
+import './forms.css';
 type Form = {
   id?: number;
   name: string;
@@ -11,7 +13,46 @@ type User = {
   name: string;
   email: string;
 };
+type Cases = {
+  _id: string;
+  name: string;
+  image: string;
+  price: number;
+  category: string;
+  items: string[];
+  createdAt: string;
+  updatedAt: string;
+};
+type GetCasesResponse = {
+  cases: Cases[];
+};
+type ErrorType = {
+  message: string;
+};
 export default function FormsTsx() {
+  const [cases, setCases] = useState<Cases[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<ErrorType | null>(null);
+  useEffect(() => {
+    const allCaseFetch = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch('http://localhost:3000/api/case/getallcase', {
+          method: 'GET',
+          credentials: 'include',
+        });
+        const data: GetCasesResponse = await res.json();
+        console.log(data.cases);
+        setCases(data.cases);
+      } catch (error) {
+        setError({ message: 'Не удалось получить кейсы' });
+      } finally {
+        setLoading(false);
+      }
+    };
+    allCaseFetch();
+  }, []);
   const [user, setUser] = useState<User[]>([]);
   useEffect(() => {
     console.log(user);
@@ -25,9 +66,7 @@ export default function FormsTsx() {
       id: 0,
       name: '',
       email: '',
-    });  form.email = '';
-    form.name = '';
-    form.id = 0;
+    });
   };
   const [form, setForm] = useState<Form>({
     id: 0,
@@ -72,6 +111,21 @@ export default function FormsTsx() {
           </div>
         ))}
       </div>
+      <List
+        items={user}
+        renderItems={(user) => (
+          <div>
+            Имя:{user.name}-Почта:{user.email}
+          </div>
+        )}
+      ></List>
+      <Timer></Timer>
+
+      {cases?.map((item, index) => (
+        <div key={index}>
+          <div>{item.name}</div>
+        </div>
+      ))}
     </div>
   );
 }

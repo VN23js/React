@@ -4,13 +4,19 @@
 @theme {
   --font-geo: 'Geologica', sans-serif;
 }
+@font-face {
+  font-family: 'ARCO';
+  src: url('/ARCO\ for\ OSX.otf');
+  font-weight: normal;
+  font-style: normal;
+}
 /* =====================
    LIGHT THEME
    ===================== */
 :root {
   /* Основные */
-  --color-bg: #ffffff;
-  --color-text: #213547;
+  --color-bg: #1b1a19;
+  --color-text: #ffffff;
   --color-primary: #535bf2;
 
   /* Шрифты */
@@ -148,4 +154,3 @@ button:focus-visible {
   border-color: var(--input-border-focus);
   box-shadow: 0 0 0 3px var(--input-shadow-focus);
 }
-

@@ -6,7 +6,7 @@ import Texblock from './components/ShowText';
 import { toast } from 'react-toastify';
 
 import TodoFilters from './components/TodoFilter';
-import Motion from '../../components/animate';
+import Motion from './components/ui/animate';
 import {
   clear,
   completedTodo,
