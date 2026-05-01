@@ -78,7 +78,7 @@
   position: absolute;
   background-size: auto 100%;
   background-repeat: no-repeat;
-  background-image: url('/public/logo.9c12b5b607c1c2772058.png');
+  background-image: url('/logo.9c12b5b607c1c2772058.png');
 }
 @media (max-width: 900px) {
   .event-banner {

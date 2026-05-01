@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react';
-import Navbar from './navbar';
+import Navbar from './Navbar.js';
 import { Outlet } from 'react-router-dom';
-import MobilePanel from './MobilePanel';
+import MobilePanel from './MobilePanel.js';
 import LeftPanel from './LeftPanel';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNewItemLenta } from '../redux/caseSlice';
+import { addNewItemLenta } from '../redux/ProfileSlice.js';
 import FooterPetuh from './Footer';
 import OnlineUsers from './OnlineUsers';
 import { initSocketListeners } from '../hooks/socketListeners';
 import { socketTs } from '../api/socketTs';
-
+import UpLenta from './Uplenta.js';
 export default function Layout() {
-  const usersOnaline = useSelector((state) => state.caseTestTs.usersOnline);
   const dispatch = useDispatch();
   useEffect(() => {
     initSocketListeners(dispatch);
@@ -23,11 +22,14 @@ export default function Layout() {
       socketTs.off('new_drop');
     };
   }, []);
+
+  console.log('RENDER LAYOUT');
   return (
     <React.Fragment>
+      <UpLenta></UpLenta>
       <Navbar />
 
-      <div className='pt-[100px] pb-[60px] min-h-screen  '>
+      <div className='pt-[50px] pb-[60px] min-h-screen  '>
         <div className='hidden min-[1500px]:block w-[190px]  left-1 top-12   ml-2 '>
           <div
             className='bg-[#171512] overflow-hidden
@@ -42,6 +44,7 @@ export default function Layout() {
         </div>
       </div>
       <FooterPetuh></FooterPetuh>
+
       <MobilePanel />
     </React.Fragment>
   );

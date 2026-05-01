@@ -254,3 +254,47 @@
     font-size: 12px;
   }
 }
+
+.footer-navogation {
+  position: relative;
+}
+.footer-navigation::before {
+  content: '';
+  background: url('/mascot.a725464d08e5fcf905b0.png') no-repeat;
+  background-size: contain;
+  pointer-events: none;
+  position: absolute;
+  width: 360px;
+  height: 315px;
+  bottom: 0;
+  right: 210px;
+  opacity: 0.5;
+  z-index: 0;
+}
+@media (max-width: 1025px) {
+  .footer-navigation::before {
+    height: 110px;
+    position: absolute;
+    right: 16px;
+    top: 160px;
+    width: 110px;
+    display: block;
+  }
+}
+.shadow-cust {
+  position: relative;
+}
+
+/* Затемнение справа */
+.shadow-cust::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;
+  height: 100%;
+  background: linear-gradient(270deg, #171512 0%, rgba(23, 21, 18, 0) 100%);
+  pointer-events: none;
+  z-index: 10;
+  border-radius: 0 24px 24px 0;
+}

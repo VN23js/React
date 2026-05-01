@@ -3,6 +3,7 @@
 @import 'tailwindcss';
 @theme {
   --font-geo: 'Geologica', sans-serif;
+  --font-arco: 'ARCO', sans-serif;
 }
 @font-face {
   font-family: 'ARCO';

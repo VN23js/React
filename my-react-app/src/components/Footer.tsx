@@ -1,9 +1,10 @@
+import NavigationFooter from './NavigationFooter.js';
 export default function FooterPetuh() {
   return (
-    <div className='w-full max-w-[1500px]  mx-auto min-[1500px]:pl-[200px] '>
+    <div className='w-full max-w-[1500px] mx-auto min-[1500px]:pl-[200px] '>
       <footer className='bg-amber-9s00 w-full  px-2.5 h-[100px]'>
         <div className='lg:pb-0.5 pb-20 justify-center flex-col mx-auto flex '>
-          <div className='grid grid-cols-1 min-[1500px]:grid-cols-2 gap-6 w-full'>
+          <div className='grid grid-cols-1 min-[1500px]:grid-cols-2 mb-10 gap-6 w-full'>
             <div className='before-loop'>
               <div className='text-content flex h-[160px] items-center overflow-hidden  bg-[#2d2720] rounded-3xl p-3 px-[24px]'>
                 <div className='flex-1 seo-bg'>
@@ -33,6 +34,7 @@ export default function FooterPetuh() {
               </div>
             </div>
           </div>
+          <NavigationFooter></NavigationFooter>
         </div>
       </footer>
     </div>

@@ -14,6 +14,7 @@ export default function OnlineUsers() {
       socketTs.off('users_online');
     };
   }, []);
+
   return (
     <div className='w-full mb-1  flex '>
       <div className='bg-[#2c2a24] min-w-35 rounded-t-[14px] rounded-b-lg flex  items-center gap-1 col w-full p-3'>

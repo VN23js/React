@@ -3,19 +3,20 @@ import UsersProfileCard from './components/UserProfileCard.js';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '../../redux/store.js';
 import { useParams } from 'react-router-dom';
-import { ClearUserProfile, getProfileUser } from '../../redux/testSlice.js';
+import { ClearUserProfile, getProfileUser } from '../../redux/ProfileSlice.js';
 import LoadingCard from './components/ui/shared/Loading.js';
 import Error from './components/ui/shared/Error.js';
 import UsersProfileInventory from './components/UserProfileInvenory.js';
+import HasmoreCase from './components/ui/shared/Hasmore.js';
 
 export default function UsersProfilePage() {
   const dispatch = useDispatch<AppDispatch>();
   const profileUserStatus = useSelector(
     (state: RootState) => state.caseTestTs.profileUserStatus
   );
+  const hasMore = useSelector((state: RootState) => state.caseTestTs.hasMore);
 
   const { id } = useParams<{ id: string }>();
-  console.log(profileUserStatus);
   useEffect(() => {
     if (id) {
       dispatch(getProfileUser(id));
@@ -32,9 +33,12 @@ export default function UsersProfilePage() {
     return <LoadingCard></LoadingCard>;
   }
   return (
-    <div className=' max-w-[1086px] justify-center flex-col mx-auto flex p-4'>
+    <div className=' max-w-[1086px] justify-center  flex-col mx-auto flex p-4'>
       <UsersProfileCard></UsersProfileCard>
       <UsersProfileInventory></UsersProfileInventory>
+      <div className='flex justify-center items-center'>
+        {hasMore && id && <HasmoreCase id={id} />}
+      </div>
     </div>
   );
 }

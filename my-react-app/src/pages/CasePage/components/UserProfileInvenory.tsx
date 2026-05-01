@@ -14,7 +14,7 @@ export default function UsersProfileInventory() {
     profileUser.inventory === null ? 0 : profileUser.inventory.length;
 
   return (
-    <div className=' max-w-[1086px] justify-center flex-col  flex p-4'>
+    <div className=' max-w-[1086px] justify-center flex-col  flex '>
       <h1 className='category_title font-geo justify-center mb-4 flex'>
         Инветарь
       </h1>

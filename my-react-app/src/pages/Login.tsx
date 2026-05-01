@@ -5,10 +5,15 @@ import { Button, Input, Typography } from '@mui/joy';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearError, loginUser } from '../redux/authSlice';
+import { clearStatus, loginUser } from '../redux/authSlice.js';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
+import type { AppDispatch, RootState } from '../redux/store.js';
 
+type LoginForm = {
+  password: string;
+  username: string;
+};
 export default function Login() {
   const {
     register,
@@ -17,17 +22,13 @@ export default function Login() {
     formState: { errors },
     setValue,
     reset,
-  } = useForm({
-    defaultValues: {},
-  });
-  const dispatch = useDispatch();
-  const { user, status, message, error, isAuth } = useSelector(
-    (state) => state.auth
-  );
-  const navigate = useNavigate();
+  } = useForm<LoginForm>();
 
   const password = watch('password');
   const username = watch('username');
+  const dispatch = useDispatch<AppDispatch>();
+  const { statusLogin, isAuth } = useSelector((state: RootState) => state.auth);
+  const navigate = useNavigate();
 
   const saved = localStorage.getItem('useFormsLogin');
   const savedData = saved ? JSON.parse(saved) : {};
@@ -37,7 +38,7 @@ export default function Login() {
       setValue('username', savedData.username);
     }
     if (savedData.password) {
-      setValue('username', savedData.password);
+      setValue('password', savedData.password);
     }
   }, []);
 
@@ -48,127 +49,25 @@ export default function Login() {
     );
   }, [username, password]);
 
+  const handleClick = () => {
+    dispatch(loginUser({ username, password }));
+  };
+
   useEffect(() => {
-    dispatch(clearError());
-    if (status === 'succeeded') {
-      toast.success(message);
-    } else if (status === 'failed') {
-      toast.error(error);
+    if (statusLogin.status === 'successed') {
+      toast.success(statusLogin.message);
+      reset();
+    } else if (statusLogin.status === 'failed') {
+      toast.error(statusLogin.error);
     }
-    if (isAuth) navigate('/');
-  }, [status, , message, error]);
-  const handleClick = (data) => {
-    dispatch(
-      loginUser({
-        username: data.username,
-        password: data.password,
-      }),
-      reset()
-    );
-  };
-  /*
+    if (isAuth) {
+      navigate('/');
+    }
+    return () => {
+      dispatch(clearStatus());
+    };
+  }, [statusLogin.status, isAuth]);
 
-  const HandleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-
-  return (
-    <div className='min-h-screen  flex items-start justify-center  pt-20 px-4'>
-      <Sheet
-        sx={{
-          width: { xs: '100%', sm: 400 },
-          mx: 'auto',
-          p: 4,
-          borderRadius: 3,
-          backgroundColor: 'rgb(30,30,30)', // тёмный фон формы
-          boxShadow: '0 4px 20px rgba(0,0,0,0.6)', // тень для контраста
-          color: 'white',
-        }}
-      >
-        <h1 className='text-2xl font-semibold mb-4 text-center text-white'>
-          Вход
-        </h1>
-
-        <Grid container spacing={2} direction='column'>
-          <form autoComplete='on' onSubmit={(e) => e.preventDefault()}>
-            <Grid item>
-              <Input
-                value={form.username}
-                name='username'
-                onChange={(e) => HandleChange(e)}
-                placeholder='Имя'
-                fullWidth
-                sx={{
-                  backgroundColor: 'rgb(50,50,50)',
-                  color: 'white',
-                  borderRadius: 2,
-                  '& input::placeholder': { color: 'gray' },
-                }}
-              />
-            </Grid>
-
-            <Grid item>
-              <Input
-                value={form.password}
-                name='password'
-                onChange={(e) => HandleChange(e)}
-                placeholder='Пароль'
-                type='password'
-                fullWidth
-                sx={{
-                  backgroundColor: 'rgb(50,50,50)',
-                  color: 'white',
-                  borderRadius: 2,
-                  '& input::placeholder': { color: 'gray' },
-                }}
-              />
-            </Grid>
-          </form>
-          <Grid item>
-            <Button
-              variant='solid'
-              onClick={handleClick}
-              sx={{
-                width: { xs: '100%', sm: 200 },
-                backgroundColor: '#7c3aed',
-                color: 'white',
-                borderRadius: 2,
-                fontWeight: 600,
-                '&:hover': {
-                  backgroundColor: '#5b21b6',
-                },
-              }}
-            >
-              Войти
-            </Button>
-
-            <div
-              className='mt-3 justify-center
-             text-center'
-            >
-              <div className='flex items-center justify-between fixed-col'>
-                <Link className='flex' to='/register'>
-                  <Typography level='body-sm' sx={{ color: '#a78bfa' }}>
-                    Регистрация
-                  </Typography>
-                </Link>
-                <Link className='flex' to='/'>
-                  <Typography level='body-sm' sx={{ color: '#a78bfa' }}>
-                    Главная страница
-                  </Typography>
-                </Link>
-              </div>
-            </div>
-          </Grid>
-        </Grid>
-      </Sheet>
-    </div>
-  );
-  */
   return (
     <>
       <div className='container  '>
@@ -197,7 +96,7 @@ export default function Login() {
               />
               {errors.username && (
                 <p className='text-[#ff5c5c] text-[12px] pl-1'>
-                  {errors.username.message}
+                  {errors.username.message as string}
                 </p>
               )}
               <input
@@ -210,7 +109,7 @@ export default function Login() {
               />
               {errors.password && (
                 <p className='text-[#ff5c5c] text-[12px] pl-1'>
-                  {errors.password.message}
+                  {errors.password.message as string}
                 </p>
               )}
 

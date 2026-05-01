@@ -2,14 +2,15 @@ import { GiPistolGun } from 'react-icons/gi';
 import { useSelector } from 'react-redux';
 
 import type { RootState } from '../../../redux/store.js';
+import HasmoreCase from './ui/shared/Hasmore.js';
 
 export default function UsersProfileCard() {
   const profileUser = useSelector(
     (state: RootState) => state.caseTestTs.profileUser
   );
-  console.log(profileUser?.maxPriceItem?.nameSkin);
+
   return (
-    <div className=' grid  grid-cols-1 lg:grid-cols-2 gap-1.5 '>
+    <div className=' grid mb-5.5 grid-cols-1 lg:grid-cols-2 gap-1.5 '>
       <div className='w-full p-5 rounded-2xl bg-[linear-gradient(180deg,#2c2a24,#37342b)]'>
         <div className='flex gap-2'>
           <img

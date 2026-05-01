@@ -1,10 +1,11 @@
 import { CirclePlus } from 'lucide-react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import NavigationLinkInventory from './LinkNavigation/NavigationLink';
-import NavigationLinkHome from './LinkNavigation/NavigationLinkHome';
+import NavigationLinkInventory from './LinkNavigation/NavigationLink.js';
+import NavigationLinkHome from './LinkNavigation/NavigationLinkHome.js';
 import { useSelector } from 'react-redux';
+import type { RootState } from '../redux/store.js';
 export default function MobilePanel() {
-  const { user, isAuth } = useSelector((state) => state.auth);
+  const { user, isAuth } = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
 
   return (
@@ -23,7 +24,7 @@ export default function MobilePanel() {
         <NavigationLinkInventory></NavigationLinkInventory>
       </div>
       <div className='relative flex items-center gap-3'>
-        {isAuth && (
+        {isAuth && user && (
           <div className='  h-[50px] w-[50px] shrink-0 rounded-[50px] cursor-pointer overflow-hidden '>
             <img
               onClick={() => navigate(`/profile/${user.id}`)}
@@ -32,8 +33,14 @@ export default function MobilePanel() {
             />
           </div>
         )}
-        <div className='flex items-center h-[38px] px-3 gap-2 rounded-xl  font-geo  bg-[linear-gradient(307deg,#d26928_3.2%,#ffd014_99.71%)]'>
-          <span className=' text-[16px] '>0 </span>
+        <div className='flex items-center h-[38px] px-3 gap-2 rounded-xl cursor-pointer font-geo  bg-[linear-gradient(307deg,#d26928_3.2%,#ffd014_99.71%)]'>
+          <div
+            className='text-[16px] font-geo font-bold flex  items-center'
+            style={{ textShadow: '0 2px 1px rgba(137, 65, 14, .34)' }}
+          >
+            <span>0</span>
+            <span>₽</span>
+          </div>
           <CirclePlus className='w-5 h-5 ' />
         </div>
       </div>

@@ -56,17 +56,7 @@ export const getAllCaseFetch = createAsyncThunk(
     }
   }
 );
-export const getAllSessionFetch = createAsyncThunk(
-  '/api/case/getAllSession',
-  async (_, { rejectWithValue }) => {
-    try {
-      const { data } = await api.get('/case/getallsession');
-      return data;
-    } catch (error) {
-      return rejectWithValue(error.response?.data || 'Ошибка сервера');
-    }
-  }
-);
+
 export const randomItemFetch = createAsyncThunk(
   '/api/case/random',
   async (id, { rejectWithValue }) => {
@@ -93,10 +83,6 @@ export const caseSlice = createSlice({
   name: 'case',
   initialState,
   reducers: {
-    addNewItemLenta: (state, action) => {
-      state.session.unshift(action.payload);
-      if (state.session.length > 10) state.session.pop();
-    },
     closeWinModal: (state) => {
       state.isWinModalOpen = false;
     },
@@ -184,21 +170,6 @@ export const caseSlice = createSlice({
       .addCase(getAllCaseFetch.rejected, (state, action) => {
         state.getAllCase.status = 'failed';
         state.getAllCase.error = action.payload?.message || 'Ошибка сервера';
-      })
-      ////GEt all Session
-      .addCase(getAllSessionFetch.pending, (state) => {
-        state.getAllSession.status = 'loading';
-        state.getAllSession.error = null;
-      })
-      .addCase(getAllSessionFetch.fulfilled, (state, action) => {
-        state.getAllSession.status = 'succeeded';
-        state.session = action.payload.DataWinIndex;
-        state.message = action.payload.message;
-        state.getAllSession.error = null;
-      })
-      .addCase(getAllSessionFetch.rejected, (state, action) => {
-        state.getAllSession.status = 'failed';
-        state.getAllSession.error = action.payload?.message || 'Ошибка сервера';
       })
 
       ////GEt all Invetory

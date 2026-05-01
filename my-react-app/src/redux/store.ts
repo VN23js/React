@@ -5,7 +5,7 @@ import authSlice from './authSlice.js';
 import todoSlice from './todoSlice.js';
 // @ts-ignore
 import caseSlice from './caseSlice.js';
-import caseSliceTestTs from './testSlice.js';
+import caseSliceTestTs from './ProfileSlice.js';
 export const store = configureStore({
   reducer: {
     auth: authSlice,

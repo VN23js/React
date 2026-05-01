@@ -14,7 +14,7 @@ import { Grid } from '@mui/joy';
 import HomeCaseItems from './pages/CasePage/components/HomeCaseItems';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCaseFetch } from './redux/caseSlice';
-import LeftPanel from './components/LeftPanel';
+
 import Timer from './TS/Time';
 import LoadingCard from './pages/CasePage/components/ui/shared/Loading';
 

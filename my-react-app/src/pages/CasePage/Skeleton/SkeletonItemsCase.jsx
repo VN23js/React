@@ -19,7 +19,7 @@ export default function SkeletonItemsCase() {
   return (
     <Grid container spacing={1}>
       {skeletonColors.map((color, i) => (
-        <Grid key={i} item xs={6} sm={3} md={2}>
+        <Grid key={i} item={'true'} xs={6} sm={3} md={2}>
           <div
             className='items-case flex-col flex justify-center animate-pulse'
             style={{ background: color }}

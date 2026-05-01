@@ -1,6 +1,6 @@
 import type { AppDispatch } from '../redux/store.js';
 import { socketTs } from '../api/socketTs.js';
-import { UsersOnline } from '../redux/testSlice.js';
+import { UsersOnline } from '../redux/ProfileSlice.js';
 export const initSocketListeners = (dispatch: AppDispatch) => {
   socketTs.off('users_online');
   socketTs.on('users_online', (usersOnline: number) => {

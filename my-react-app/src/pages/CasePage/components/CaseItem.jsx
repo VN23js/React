@@ -68,12 +68,9 @@ export default function Caseitem() {
                       />
                     </div>
 
-                    <di
-                      v
-                      className='item_title flex items-center justify-center text-[13px]'
-                    >
+                    <div className='item_title flex items-center justify-center text-[13px]'>
                       {items.nameWeapon}
-                    </di>
+                    </div>
                     <p className='text-[13px] truncate items-center !font-geo'>
                       {items.nameSkin}
                     </p>

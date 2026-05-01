@@ -5,17 +5,22 @@ import { Button, Input, Typography } from '@mui/joy';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerUsers } from '../redux/authSlice.js';
+import { clearStatus, registerUsers } from '../redux/authSlice.js';
 import { toast } from 'react-toastify';
-import { clearError } from '../redux/authSlice';
-import { useForm } from 'react-hook-form';
 
+import { useForm } from 'react-hook-form';
+import type { AppDispatch, RootState } from '../redux/store.js';
+
+type RegisternForm = {
+  password: string;
+  username: string;
+};
 export default function Register() {
-  const { user, status, message, error, isAuth } = useSelector(
-    (state) => state.auth
+  const { statusRegister, isAuth } = useSelector(
+    (state: RootState) => state.auth
   );
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const {
     register,
     handleSubmit,
@@ -23,7 +28,7 @@ export default function Register() {
     formState: { errors },
     setValue,
     reset,
-  } = useForm();
+  } = useForm<RegisternForm>();
   const username = watch('username');
   const password = watch('password');
   const saved = localStorage.getItem('useFormsRegister');
@@ -44,14 +49,18 @@ export default function Register() {
     );
   }, [username, password]);
   useEffect(() => {
-    dispatch(clearError());
-    if (status === 'succeeded') {
-      toast.success(message);
-    } else if (status === 'failed') {
-      toast.error(error);
+    if (statusRegister.status === 'successed') {
+      toast.success(statusRegister.message);
+    } else if (statusRegister.status === 'failed') {
+      toast.error(statusRegister.error);
     }
-    if (isAuth) navigate('/');
-  }, [status, message, error, dispatch]);
+    if (isAuth) {
+      navigate('/');
+    }
+    return () => {
+      dispatch(clearStatus());
+    };
+  }, [statusRegister.status, isAuth]);
 
   const handleClick = () => {
     dispatch(registerUsers({ username, password }));
@@ -199,7 +208,7 @@ export default function Register() {
               />
               {errors.username && (
                 <p className='text-[#ff5c5c] text-[12px] pl-1'>
-                  {errors.username.message}
+                  {errors.username.message as string}
                 </p>
               )}
               <input
@@ -216,7 +225,7 @@ export default function Register() {
               />
               {errors.password && (
                 <p className='text-[#ff5c5c] text-[12px] pl-1'>
-                  {errors.password.message}
+                  {errors.password.message as string}
                 </p>
               )}
 

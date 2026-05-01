@@ -4,6 +4,7 @@ module.exports = {
     extend: {
       fontFamily: {
         geo: ['Geologica', 'sans-serif'],
+        arco: ['ARCO', 'sans-serif'],
       },
     },
   },
